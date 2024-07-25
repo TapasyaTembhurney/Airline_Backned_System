@@ -1,5 +1,6 @@
 const express = require("express");
-const PORT = 3000;
+const {PORT} = require("./config/serverConfig.js");
+
 const setupAndStartServer = async () => {
     const app = express();
 
@@ -9,6 +10,7 @@ const setupAndStartServer = async () => {
 
     app.listen(PORT , async() =>{
          console.log(`Server is running on port ${PORT}...`);
+        //  console.log(process.env)
     } )
 }
 
