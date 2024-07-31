@@ -45,10 +45,10 @@ class CityRepository {
             //     }
             // });
             // for getting updated data in mysql we use the below approach.
-            const City = await city.findByPk(cityID);
-            City.name = data.name;
-            await City.save(); 
-            return City;
+            const city = await City.findByPk(cityID);
+            city.name = data.name;
+            await city.save(); 
+            return city;
         }
         catch (error) {
             console.log("Something went wrong", error);
@@ -70,7 +70,7 @@ class CityRepository {
         
         try {
             if(filter.name) {
-                const cities = await city.findAll({
+                const cities = await City.findAll({
                     where: {
                         name: {
                             [Op.startsWith]: filter.name
@@ -79,7 +79,7 @@ class CityRepository {
                 })
                 return cities;
             }
-            const cities = await city.findAll();
+            const cities = await City.findAll();
             return cities;
         } 
         catch (error) {
