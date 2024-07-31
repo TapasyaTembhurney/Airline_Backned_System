@@ -1,4 +1,5 @@
 const { City } = require("../models/index");
+const { Op } = require("sequelize");
 
 class CityRepository {
     async createCity({ name }) {
@@ -64,13 +65,26 @@ class CityRepository {
             throw { error };
         }
     }
-    async getAllCities() {
+    async getAllCities(filter) {     
+        //filter can be empty also.
+        
         try {
+            if(filter.name) {
+                const cities = await city.findAll({
+                    where: {
+                        name: {
+                            [Op.startsWith]: filter.name
+                        }
+                    }
+                })
+                return cities;
+            }
             const cities = await city.findAll();
             return cities;
-        } catch (error) {
+        } 
+        catch (error) {
             console.error("Something went wrong at repository layer", error);
-            throw {error};
+        throw {error};
         }
     }
 
